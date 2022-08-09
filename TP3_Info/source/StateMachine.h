@@ -46,14 +46,14 @@ void apagar_maquina_tapado() {
 }
 
 Evento tomar_evento_tapadora(){
-	if(Sw1_get() == 0)
+	if(Sw1_get() == 1)
 		return INICIO_TAPADO;
 	else
 		return FIN_TAPADO;
 }
 
 Evento tomar_evento_llenadora(){
-	if(Sw3_get() == 0)
+	if(Sw3_get() == 1)
 		return INICIO_LLENADO;
 	else
 		return FIN_LLENADO;
@@ -80,9 +80,9 @@ void Start_sistem()
 	PORTC->PCR[3] |= (1 << PORT_PCR_PE_SHIFT) | (1 << PORT_PCR_PS_SHIFT);
 	PORTC->PCR[12] |= (1 << PORT_PCR_PE_SHIFT) | (1 << PORT_PCR_PS_SHIFT);
 
-	// Por seguridad, previo a declarar los pines como salidas los ponemos en cero
-	Red_Led_Write(0);
-	Green_Led_Write(0);
+	// Por seguridad, ponemos los de manera que las máquinas estén apagadas antes de declararlas como salidas
+	apagar_maquina_llenado();
+	apagar_maquina_tapado();
 
 	// Declaramos los pines como salidas
 	GPIOE->PDDR |= 1 << RED_PIN;
@@ -155,3 +155,4 @@ Estado procesar_evento(Estado estado_actual, Evento evento)
 
 
 #endif /* STATEMACHINE*/
+

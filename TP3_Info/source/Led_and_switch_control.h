@@ -23,22 +23,6 @@
 #define RED_LED_ON (PTE->PCOR |= (1 << RED_PIN))
 #define RED_LED_TOGGLE (PTE->PTOR |= (1 << RED_PIN))
 
-void Red_Led_Write(const bool status)
-{
-  if (status)
-    GPIOE->PSOR |= (1 << RED_PIN);
-  else
-    GPIOE->PCOR |= (1 << RED_PIN);
-}
-
-void Green_Led_Write(const bool status)
-{
-  if (status)
-    GPIOD->PSOR |= (1 << GREEN_PIN);
-  else
-    GPIOD->PCOR |= (1 << GREEN_PIN);
-}
-
 void Give_Clock_To(const unsigned int port)
 {
 	SIM->SCGC5 |= port;
@@ -46,13 +30,13 @@ void Give_Clock_To(const unsigned int port)
 
 bool Sw1_get(void)
  {
-	// Si está presionado devuelve 0, sino 1
+	// Si está presionado devuelve 1, sino 0
 	return (PTC->PDIR & (1 << SW1_PIN))? 0:1;
  }
 
 bool Sw3_get(void)
  {
-	// Si está presionado devuelve 0, sino 1
+	// Si está presionado devuelve 1, sino 0
 	return (PTC->PDIR & (1 << SW3_PIN))? 0:1;
  }
 

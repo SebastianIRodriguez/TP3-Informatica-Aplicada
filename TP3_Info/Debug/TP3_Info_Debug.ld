@@ -6,11 +6,11 @@
  * Generated linker script file for MKL46Z256xxx4
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.30
- * MCUXpresso IDE v11.5.1 [Build 7266] [2022-04-13] on 6 ago. 2022 18:37:17
+ * MCUXpresso IDE v11.5.1 [Build 7266] [2022-04-13] on 8 ago. 2022 22:22:48
  */
 
-INCLUDE "TP3_Debug_library.ld"
-INCLUDE "TP3_Debug_memory.ld"
+INCLUDE "TP3_Info_Debug_library.ld"
+INCLUDE "TP3_Info_Debug_memory.ld"
 
 ENTRY(ResetISR)
 
