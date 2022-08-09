@@ -1,15 +1,12 @@
 /*
- * StateMachine.h
- *
  *  Máquina de llenado -> LED rojo
  *  Máquina de tapado  -> LED verde
  *  Sensor de llenado  -> SW3
  *  Sensor de tapado   -> SW1
- *
  */
 
-#ifndef STATEMACHINE
-#define STATEMACHINE
+#ifndef MEF
+#define MEF
 
 #include "Led_and_switch_control.h"
 
@@ -29,64 +26,34 @@ typedef enum
     TAPANDO_Y_LLENANDO
 } Estado;
 
-void encender_maquina_llenado() {
-	RED_LED_ON;
-}
-
-void apagar_maquina_llenado() {
-	RED_LED_OFF;
-}
-
-void encender_maquina_tapado() {
-	GREEN_LED_ON;
-}
-
-void apagar_maquina_tapado() {
-	GREEN_LED_OFF;
-}
-
-Evento tomar_evento_tapadora(){
-	if(Sw1_get() == 1)
-		return INICIO_TAPADO;
-	else
-		return FIN_TAPADO;
-}
-
-Evento tomar_evento_llenadora(){
-	if(Sw3_get() == 1)
-		return INICIO_LLENADO;
-	else
-		return FIN_LLENADO;
-}
-
-void Start_sistem()
+void encender_maquina_llenado()
 {
-	// Le damos clock a los puertos
-	Give_Clock_To(SIM_SCGC5_PORTC_MASK);
-	Give_Clock_To(SIM_SCGC5_PORTD_MASK);
-	Give_Clock_To(SIM_SCGC5_PORTE_MASK);
+    LED_ROJO_ON;
+}
 
-	// Le da la funcionalidad de GPIO
-	PORTE->PCR[RED_PIN] = PORT_PCR_MUX(1);
-	PORTD->PCR[GREEN_PIN] = PORT_PCR_MUX(1);
-	PORTC->PCR[SW1_PIN] = PORT_PCR_MUX(1);
-	PORTC->PCR[SW3_PIN] = PORT_PCR_MUX(1);
+void apagar_maquina_llenado()
+{
+    LED_ROJO_OFF;
+}
 
-	// Declaramos como entradas a los pulsadores
-	PTC->PDDR &= ~(1 << SW1_PIN);
-	PTC->PDDR &= ~(1 << SW3_PIN);
+void encender_maquina_tapado()
+{
+    LED_VERDE_ON;
+}
 
-	// Activamos el Pull-UP
-	PORTC->PCR[3] |= (1 << PORT_PCR_PE_SHIFT) | (1 << PORT_PCR_PS_SHIFT);
-	PORTC->PCR[12] |= (1 << PORT_PCR_PE_SHIFT) | (1 << PORT_PCR_PS_SHIFT);
+void apagar_maquina_tapado()
+{
+    LED_VERDE_OFF;
+}
 
-	// Por seguridad, ponemos los de manera que las máquinas estén apagadas antes de declararlas como salidas
-	apagar_maquina_llenado();
-	apagar_maquina_tapado();
+Evento tomar_evento_tapadora()
+{
+    return (Sw1_get() == 1) ? INICIO_TAPADO : FIN_TAPADO;
+}
 
-	// Declaramos los pines como salidas
-	GPIOE->PDDR |= 1 << RED_PIN;
-	GPIOD->PDDR |= 1 << GREEN_PIN;
+Evento tomar_evento_llenadora()
+{
+    return (Sw3_get() == 1) ? INICIO_LLENADO : FIN_LLENADO;
 }
 
 Estado procesar_evento(Estado estado_actual, Evento evento)
@@ -152,7 +119,4 @@ Estado procesar_evento(Estado estado_actual, Evento evento)
     return estado_actual;
 }
 
-
-
-#endif /* STATEMACHINE*/
-
+#endif /* MEF*/
