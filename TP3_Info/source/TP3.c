@@ -49,30 +49,11 @@ int main(void)
 	Estado estado_actual = EN_MOVIMIENTO;
 	Estado estado_previo = EN_MOVIMIENTO;
 
-	Evento tapadora_previo = FIN_TAPADO;
-	Evento llenadora_previo = FIN_LLENADO;
-
-	Evento evento_actual;
-	Evento evento_auxiliar;
-
 	while (1)
 	{
-		// Leer entradas y en base a eso determinar el valor de la variable evento
-
-		if ((evento_auxiliar = tomar_evento_llenadora()) != llenadora_previo)
-		{
-			llenadora_previo = evento_auxiliar;
-			evento_actual = evento_auxiliar;
-		}
-		else if ((evento_auxiliar = tomar_evento_tapadora()) != tapadora_previo)
-		{
-			tapadora_previo = evento_auxiliar;
-			evento_actual = evento_auxiliar;
-		}
-
 		// Calculo el siguiente estado y aplico las acciones correspondientes
 
-		estado_actual = procesar_evento(estado_actual, evento_actual);
+		estado_actual = procesar_evento(estado_actual, tomar_evento());
 
 		if (estado_actual != estado_previo)
 		{
