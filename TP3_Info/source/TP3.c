@@ -3,14 +3,8 @@
 	Enunciado A: Simulador de fábrica de cerveza
 	Trabajo realizado por: Leonel Lingotti, Luciano Raffagnini y Sebastián I. Rodríguez
  */
-#include <stdio.h>
-#include "board.h"
-#include "peripherals.h"
-#include "pin_mux.h"
-#include "clock_config.h"
-#include "MKL46Z4.h"
-#include "fsl_debug_console.h"
 #include "MEF.h"
+#include "fsl_debug_console.h" 	// Contiene a PRINTF
 
 void imprimir_estado(Estado estado_actual)
 {

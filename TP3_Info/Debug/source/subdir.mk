@@ -4,16 +4,22 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../source/Led_and_switch_control.c \
+../source/MEF.c \
 ../source/TP3.c \
 ../source/mtb.c \
 ../source/semihost_hardfault.c 
 
 OBJS += \
+./source/Led_and_switch_control.o \
+./source/MEF.o \
 ./source/TP3.o \
 ./source/mtb.o \
 ./source/semihost_hardfault.o 
 
 C_DEPS += \
+./source/Led_and_switch_control.d \
+./source/MEF.d \
 ./source/TP3.d \
 ./source/mtb.d \
 ./source/semihost_hardfault.d 
